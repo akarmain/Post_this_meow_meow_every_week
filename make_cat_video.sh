@@ -13,7 +13,8 @@ cat_image=$1
 script_dir=${0:A:h}
 background="$script_dir/cat-free-background-template.png"
 audio_source=${2:-}
-desktop_dir=/Users/akarmain/Desktop
+# Works for any macOS account; no personal user name is embedded in the script.
+desktop_dir="$HOME/Desktop"
 base_name=${cat_image:t:r}
 stamp=$(date +%Y%m%d-%H%M%S)
 output="$desktop_dir/${base_name}-cat-video-30s-${stamp}.mp4"

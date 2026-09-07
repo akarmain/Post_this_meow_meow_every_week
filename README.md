@@ -1,33 +1,46 @@
 # Post this meow-meow every week
 
-Small macOS utility that turns a transparent cat PNG into a 30-second square social video. The cat is scaled down, placed in the lower-right corner, and subtly floats so the left side stays open for a caption or speech bubble.
+Небольшая утилита для macOS: превращает PNG котика с прозрачным фоном в квадратный ролик для соцсетей. Кот уменьшается, размещается справа внизу и слегка плавно двигается. Левая часть кадра остаётся свободной для облачка или подписи.
 
-## Demo
+## Демо
 
 <video src="https://s3.akarmain.ru/S/KkgIl.mp4" controls muted loop playsinline width="360"></video>
 
-[Open the demo video](https://s3.akarmain.ru/S/KkgIl.mp4)
+[Открыть демо-видео](https://s3.akarmain.ru/S/KkgIl.mp4)
 
-## Requirements
+## Что понадобится
 
-- macOS or another system with `zsh`
-- [FFmpeg](https://ffmpeg.org/): `brew install ffmpeg`
-- A PNG with a transparent background
+- Mac с `zsh` (он есть в macOS по умолчанию);
+- [FFmpeg](https://ffmpeg.org/). Если Homebrew уже установлен: `brew install ffmpeg`;
+- PNG котика с прозрачным фоном.
 
-## Use
+## Как запустить
+
+1. Скачайте репозиторий или откройте его папку в Терминале.
+2. Выполните команду, указав путь к PNG:
+
+   ```zsh
+   zsh make_cat_video.sh '/путь/к/котику.png'
+   ```
+
+Скрипт создаст на рабочем столе 30-секундный ролик MP4 без звука. Имя содержит дату и время, поэтому старые ролики не перезаписываются.
+
+Чтобы добавить свой звук из другого видео или аудиофайла, передайте его вторым аргументом:
 
 ```zsh
-zsh make_cat_video.sh '/path/to/cat.png'
+zsh make_cat_video.sh '/путь/к/котику.png' '/путь/к/звуку.mp4'
 ```
 
-The script creates a silent 30-second H.264/AAC MP4 on the Desktop. To use a sound from an existing video or audio file, pass it as a second argument:
+## Параметры готового ролика
 
-```zsh
-zsh make_cat_video.sh '/path/to/cat.png' '/path/to/sound.mp4'
-```
+- 720×720, квадрат;
+- 30 кадров в секунду;
+- 30 секунд;
+- H.264 + AAC — подходит для загрузки в соцсети;
+- котик размером 450 px расположен справа внизу (`x=270`, `y=220`) и чуть «парит».
 
-Output: 720×720, 30 fps, 30 seconds. A timestamp prevents overwriting an earlier export.
+Фон-шаблон уже лежит в репозитории. Скрипт не содержит личных путей: он сохраняет результат на рабочий стол **того пользователя, который его запустил**.
 
-## Layout
+## Если нужно изменить композицию
 
-The current layout uses a 450 px cat canvas, positioned at `x=270`, `y=220` in a 720×720 video. Edit those values in `make_cat_video.sh` if you want a different composition.
+В `make_cat_video.sh` измените значения `scale=450:450`, `x=270` и `y=220` в строке `overlay`.
